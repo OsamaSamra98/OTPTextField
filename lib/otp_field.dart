@@ -43,6 +43,9 @@ class OTPTextField extends StatefulWidget {
   /// Obscure Text if data is sensitive
   final bool obscureText;
 
+  /// Enable autoFocus
+  final bool autoFocus;
+
   /// Whether the [InputDecorator.child] is part of a dense form (i.e., uses less vertical
   /// space).
   final bool isDense;
@@ -71,6 +74,7 @@ class OTPTextField extends StatefulWidget {
     this.spaceBetween = 0,
     this.otpFieldStyle,
     this.hasError = false,
+    this.autoFocus = true,
     this.keyboardType = TextInputType.number,
     this.style = const TextStyle(),
     this.outlineBorderRadius: 10,
@@ -81,7 +85,7 @@ class OTPTextField extends StatefulWidget {
     this.onChanged,
     this.inputFormatter,
     this.contentPadding =
-        const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+    const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
     this.isDense = false,
     this.onCompleted,
   })  : assert(length > 1),
@@ -164,13 +168,13 @@ class _OTPTextFieldState extends State<OTPTextField> {
 
     InputBorder _getBorder(Color color) {
       final colorOrError =
-          widget.hasError ? _otpFieldStyle.errorBorderColor : color;
+      widget.hasError ? _otpFieldStyle.errorBorderColor : color;
 
       return widget.fieldStyle == FieldStyle.box
           ? OutlineInputBorder(
-              borderSide: BorderSide(color: colorOrError),
-              borderRadius: BorderRadius.circular(widget.outlineBorderRadius),
-            )
+        borderSide: BorderSide(color: colorOrError),
+        borderRadius: BorderRadius.circular(widget.outlineBorderRadius),
+      )
           : UnderlineInputBorder(borderSide: BorderSide(color: colorOrError));
     }
 
@@ -185,6 +189,11 @@ class _OTPTextFieldState extends State<OTPTextField> {
         textCapitalization: widget.textCapitalization,
         textAlign: TextAlign.center,
         style: widget.style,
+
+        autofocus:
+        widget.autoFocus? ( index==0? true:false):false,
+
+
         inputFormatters: widget.inputFormatter,
         maxLength: 1,
         focusNode: _focusNodes[index],
